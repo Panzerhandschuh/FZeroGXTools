@@ -9,4 +9,10 @@
     <Folder Include="Tpl\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="gxpand.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

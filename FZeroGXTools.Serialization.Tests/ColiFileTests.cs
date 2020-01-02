@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.IO;
 
 namespace FZeroGXTools.Serialization.Tests
@@ -6,12 +7,13 @@ namespace FZeroGXTools.Serialization.Tests
 	[TestFixture]
 	public class ColiFileTests
 	{
-		private const string course01 = @"Game Files\stage\COLI_COURSE03.lz";
+		private const string courseFile = @"Game Files\stage\COLI_COURSE03.lz";
 
 		[Test]
 		public void CanDeserializeColiFile()
 		{
-			using (var loader = new GXPandLoader(course01))
+			var coursePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, courseFile);
+			using (var loader = new GXPandLoader(coursePath))
 			using (var reader = new FZReader(loader.GetStream()))
 			{
 				var file = ColiFile.Deserialize(reader);

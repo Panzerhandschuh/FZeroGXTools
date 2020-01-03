@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -33,6 +34,16 @@ namespace FZeroGXTools.Serialization
 			return array;
 		}
 
+		public uint[] ReadUInt32Array(int count)
+		{
+			var array = new uint[count];
+
+			for (var i = 0; i < count; i++)
+				array[i] = ReadUInt32();
+
+			return array;
+		}
+
 		public override int ReadInt32()
 		{
 			var bytes = ReadBytes(4);
@@ -45,6 +56,16 @@ namespace FZeroGXTools.Serialization
 			var bytes = ReadBytes(4);
 			Array.Reverse(bytes); // Swap endianness
 			return BitConverter.ToSingle(bytes, 0);
+		}
+
+		public string ReadNullTerminatedString()
+		{
+			var bytes = new List<byte>();
+			byte curByte;
+			while ((curByte = ReadByte()) != 0)
+				bytes.Add(curByte);
+
+			return Encoding.ASCII.GetString(bytes.ToArray());
 		}
 
 		public T ReadAtOffset<T>(int offset, Func<FZReader, T> readFunc) where T : IBinarySerializable

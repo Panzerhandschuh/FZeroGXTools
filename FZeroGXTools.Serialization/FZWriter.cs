@@ -35,6 +35,12 @@ namespace FZeroGXTools.Serialization
 				Write(value);
 		}
 
+		public void Write(uint[] values)
+		{
+			foreach (var value in values)
+				Write(value);
+		}
+
 		public override void Write(int value)
 		{
 			var bytes = BitConverter.GetBytes(value);
@@ -49,6 +55,16 @@ namespace FZeroGXTools.Serialization
 			Write(bytes);
 		}
 
+		/// <summary>
+		/// Write a null-terminated string
+		/// </summary>
+		public override void Write(string value)
+		{
+			var bytes = Encoding.ASCII.GetBytes(value);
+			Write(bytes);
+			Write((byte)0); // Null terminator
+		}
+
 		public void Write(IBinarySerializable item)
 		{
 			item.Serialize(this);
@@ -57,22 +73,22 @@ namespace FZeroGXTools.Serialization
 		public void WriteAtOffset(IBinarySerializable item, int offset)
 		{
 			var returnAddress = BaseStream.Position;
-			BaseStream.Seek(offset, SeekOrigin.Begin);
+			BaseStream.Position = offset;
 
 			Write(item);
 
-			BaseStream.Seek(returnAddress, SeekOrigin.Begin);
+			BaseStream.Position = returnAddress;
 		}
 
 		public void WriteAtOffset(IBinarySerializable[] item, int offset)
 		{
 			var returnAddress = BaseStream.Position;
-			BaseStream.Seek(offset, SeekOrigin.Begin);
+			BaseStream.Position = offset;
 
 			foreach (var serializable in item)
 				Write(serializable);
 
-			BaseStream.Seek(returnAddress, SeekOrigin.Begin);
+			BaseStream.Position = returnAddress;
 		}
 	}
 }

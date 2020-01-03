@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using System.IO;
 
 namespace FZeroGXTools.Serialization.Tests
@@ -14,7 +13,7 @@ namespace FZeroGXTools.Serialization.Tests
 		{
 			var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			var coursePath = Path.Combine(currentDir, courseFile);
-			using (var loader = new GXPandLoader(coursePath))
+			using (var loader = new LZUnpacker(coursePath))
 			using (var reader = new FZReader(loader.GetStream()))
 			{
 				var file = ColiFile.Deserialize(reader);

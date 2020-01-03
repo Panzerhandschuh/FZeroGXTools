@@ -1,10 +1,27 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace FZeroGXTools.Serialization
 {
 	public class FZWriter : BinaryWriter
 	{
+		public FZWriter(Stream output) : base(output)
+		{
+		}
+
+		public FZWriter(Stream output, Encoding encoding) : base(output, encoding)
+		{
+		}
+
+		public FZWriter(Stream output, Encoding encoding, bool leaveOpen) : base(output, encoding, leaveOpen)
+		{
+		}
+
+		protected FZWriter()
+		{
+		}
+
 		public void Write(Vector3 value)
 		{
 			Write(-value.x);

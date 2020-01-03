@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.IO;
+using System.Reflection;
 
 namespace FZeroGXTools.Serialization.Tests
 {
@@ -11,7 +12,7 @@ namespace FZeroGXTools.Serialization.Tests
 		[Test]
 		public void CanDeserializeColiFile()
 		{
-			var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			var coursePath = Path.Combine(currentDir, courseFile);
 			using (var loader = new LZUnpacker(coursePath))
 			using (var reader = new FZReader(loader.GetStream()))

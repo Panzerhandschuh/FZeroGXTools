@@ -23,7 +23,22 @@
 		public void Serialize(FZWriter writer)
 		{
 			writer.Write(header);
-			throw new System.NotImplementedException();
+			writer.Write(checkpointTable);
+			writer.Write(unknownTable1);
+			writer.Write(objectCollisionTable);
+			writer.Write(unknown1);
+			writer.Write(objectTable);
+			writer.Write(unknown2);
+			writer.Write(unknown3);
+			writer.Write(meshCollisionTable);
+			writer.Write(unknownTable2);
+			writer.Write(unknown4);
+			writer.Write(unknownOffset1);
+			writer.Write(unknown5);
+			writer.Write(unknownOffset2);
+			writer.Write(unknownTable3);
+			writer.Write(unknownTable4);
+			writer.Write(unknown6);
 		}
 
 		public static ColiFile Deserialize(FZReader reader)

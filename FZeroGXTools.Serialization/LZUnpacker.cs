@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace FZeroGXTools.Serialization
 {
@@ -15,7 +16,7 @@ namespace FZeroGXTools.Serialization
 		/// <param name="packedFile">Path of COLI_COURSE##.lz file to be unpacked</param>
 		public LZUnpacker(string packedFile)
 		{
-			var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			var gxpandPath = Path.Combine(currentDir, gxpandExe);
 			var args = GetGxpandArgs(packedFile);
 

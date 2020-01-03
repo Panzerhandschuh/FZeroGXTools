@@ -18,7 +18,8 @@ namespace FZeroGXTools.Serialization
 		{
 			//this.gxRootOutputDir = gxRootOutputDir;
 
-			var gxpandPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, gxpandExe);
+			var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var gxpandPath = Path.Combine(currentDir, gxpandExe);
 			var args = GetGXPandArgs(inputFile);
 			var process = Process.Start(gxpandPath, args);
 			process.WaitForExit();

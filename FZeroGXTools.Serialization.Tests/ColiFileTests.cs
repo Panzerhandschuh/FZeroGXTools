@@ -7,12 +7,13 @@ namespace FZeroGXTools.Serialization.Tests
 	[TestFixture]
 	public class ColiFileTests
 	{
-		private const string courseFile = @"Game Files\stage\COLI_COURSE03.lz";
+		private const string courseFile = @"GameData\stage\COLI_COURSE03.lz";
 
 		[Test]
 		public void CanDeserializeColiFile()
 		{
-			var coursePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, courseFile);
+			var currentDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			var coursePath = Path.Combine(currentDir, courseFile);
 			using (var loader = new GXPandLoader(coursePath))
 			using (var reader = new FZReader(loader.GetStream()))
 			{
